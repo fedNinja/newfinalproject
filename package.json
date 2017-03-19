@@ -17,7 +17,7 @@
     "react-dom": "^15.4.2"
   },
   "scripts": {
-    "devserver": "nodemon --watch --exec projectbackend/src babel-node -- src/index.js",
+    "devserver": "nodemon --watch src --exec babel-node -- projectbackend/src/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
