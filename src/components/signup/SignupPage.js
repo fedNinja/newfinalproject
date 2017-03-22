@@ -9,7 +9,7 @@ class SignupPage extends Component{
     return(
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
-          <SignupForm userSignupRequest={userSignupRequest}/>
+          <SignupForm userSignupRequest={userSignupRequest} />
         </div>
       </div>
     );

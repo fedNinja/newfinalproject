@@ -1,17 +1,7 @@
 import React, {Component} from 'react';
-
+import { userSignupRequest, getSignupData } from '../../actions/signupActions';
 class SignupForm extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-        username:'',
-        password:'',
-        passwordConfirmation:'',
-        email:'',
-    }
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-}
+  
 
   onChange(e) {
     this.setState({[e.target.name]: e.target.value});
@@ -20,27 +10,31 @@ class SignupForm extends Component{
   onSubmit(e) {
     e.preventDefault();
     console.log(this.state);
-    this.props.userSignupRequest(this.state);
+    this.props.dispatch(userSignupRequest(e.target.querySelector('input').value));
+    {/*this.props.userSignupRequest(this.state);*/}
+  }
+
+  getAllUsers() {
+    this.props.dispatch(getSignupData())
   }
 
   render(){
     return(
+     <div>
       <form onSubmit={this.onSubmit}>
         <h1>Join our community!</h1>
           <div className="form-group">
-            <label className="control-label">Username</label>
+            <label className="control-label">UserName</label>
             <input
-              value={this.state.username}
               onChange={this.onChange}
               type="text"
-              name="username"
+              name="userName"
               className="form-control"
             />
           </div>
           <div className="form-group">
             <label className="control-label">Password</label>
             <input
-              value={this.state.password}
               onChange={this.onChange}
               type="text"
               name="password"
@@ -50,7 +44,6 @@ class SignupForm extends Component{
           <div className="form-group">
             <label className="control-label">passwordConfirmation</label>
             <input
-              value={this.state.passwordConfirmation}
               onChange={this.onChange}
               type="text"
               name="passwordConfirmation"
@@ -60,7 +53,6 @@ class SignupForm extends Component{
           <div className="form-group">
             <label className="control-label">Email</label>
             <input
-              value={this.state.email}
               onChange={this.onChange}
               type="text"
               name="email"
@@ -70,7 +62,14 @@ class SignupForm extends Component{
           <div className="form-group">
             <button className="btn btn-primary btn-lg">Sign up</button>
           </div>
+
       </form>
+
+      <button
+        onClick={this.getAllUsers.bind()}>
+          Press Me
+        </button>
+      </div>
     );
   }
 }
