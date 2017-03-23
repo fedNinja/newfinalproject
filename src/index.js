@@ -21,7 +21,8 @@ import routes from './routes';
 const middleware = applyMiddleware(promise(), thunk, logger());
 
 axios.defaults.baseURL = 'http://localhost:8080';
-const store = createStore(
+
+export const store = createStore(
   reducer,middleware
 );
 

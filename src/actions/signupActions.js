@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 export function userSignupRequest(userData) {
+  const {userName, email, password } = userData;
+  console.log({userName, email, password});
   return dispatch => {
     return axios.post('/api/users', userData)
       .then(res => dispatch({ type:'SIGNUP', payload:res.data}))

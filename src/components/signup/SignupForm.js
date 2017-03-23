@@ -1,16 +1,26 @@
 import React, {Component} from 'react';
+import {store} from '../../index';
+
 import { userSignupRequest, getSignupData } from '../../actions/signupActions';
 class SignupForm extends Component{
-  
+  constructor(props){
+    super(props);
+    this.state={
+      userName:'',
+      email:'',
+      password:''
+    }
+  }
 
   onChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+    console.log(e.nativeEvent.target.value);
+    this.setState({[e.nativeEvent.target.name]: e.nativeEvent.target.value});
   }
 
   onSubmit(e) {
     e.preventDefault();
     console.log(this.state);
-    this.props.dispatch(userSignupRequest(e.target.querySelector('input').value));
+    store.dispatch(userSignupRequest(this.state));
     {/*this.props.userSignupRequest(this.state);*/}
   }
 
@@ -21,12 +31,12 @@ class SignupForm extends Component{
   render(){
     return(
      <div>
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={(e) => this.onSubmit(e) }>
         <h1>Join our community!</h1>
           <div className="form-group">
             <label className="control-label">UserName</label>
             <input
-              onChange={this.onChange}
+              onChange={(e) => this.onChange(e)}
               type="text"
               name="userName"
               className="form-control"
@@ -35,7 +45,7 @@ class SignupForm extends Component{
           <div className="form-group">
             <label className="control-label">Password</label>
             <input
-              onChange={this.onChange}
+              onChange={(e) => this.onChange(e)}
               type="text"
               name="password"
               className="form-control"
@@ -44,7 +54,7 @@ class SignupForm extends Component{
           <div className="form-group">
             <label className="control-label">passwordConfirmation</label>
             <input
-              onChange={this.onChange}
+              onChange={(e) => this.onChange(e)}
               type="text"
               name="passwordConfirmation"
               className="form-control"
@@ -53,7 +63,7 @@ class SignupForm extends Component{
           <div className="form-group">
             <label className="control-label">Email</label>
             <input
-              onChange={this.onChange}
+              onChange={(e) => this.onChange(e)}
               type="text"
               name="email"
               className="form-control"
@@ -65,10 +75,6 @@ class SignupForm extends Component{
 
       </form>
 
-      <button
-        onClick={this.getAllUsers.bind()}>
-          Press Me
-        </button>
       </div>
     );
   }
