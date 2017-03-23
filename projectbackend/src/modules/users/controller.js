@@ -19,7 +19,19 @@ export const getUsers = async (req, res) => {
 		return res.status(200).json({users: await User.find({})});
 
 		}catch(e) {
-		return res.status(e.status).json({error:true, message:'Error with User creation'});
+		return res.status(e.status).json({error:true, message:'Error with to get user data'});
+	}
+
+}
+
+export const getUserById = async (req, res) => {
+		const{userName} = req.body.userName;
+		console.log("inside find by Id", userName);
+	try{
+		return res.status(200).json({users: await User.findOne({userName})});
+
+		}catch(e) {
+		return res.status(e.status).json({error:true, message:'Error with getting user data'});
 	}
 
 }

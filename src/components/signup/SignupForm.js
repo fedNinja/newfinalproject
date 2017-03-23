@@ -24,13 +24,8 @@ class SignupForm extends Component{
     {/*this.props.userSignupRequest(this.state);*/}
   }
 
-  getAllUsers() {
-    this.props.dispatch(getSignupData())
-  }
-
   render(){
     return(
-     <div>
       <form onSubmit={(e) => this.onSubmit(e) }>
         <h1>Join our community!</h1>
           <div className="form-group">
@@ -46,7 +41,7 @@ class SignupForm extends Component{
             <label className="control-label">Password</label>
             <input
               onChange={(e) => this.onChange(e)}
-              type="text"
+              type="password"
               name="password"
               className="form-control"
             />
@@ -55,7 +50,7 @@ class SignupForm extends Component{
             <label className="control-label">passwordConfirmation</label>
             <input
               onChange={(e) => this.onChange(e)}
-              type="text"
+              type="password"
               name="passwordConfirmation"
               className="form-control"
             />
@@ -74,8 +69,6 @@ class SignupForm extends Component{
           </div>
 
       </form>
-
-      </div>
     );
   }
 }

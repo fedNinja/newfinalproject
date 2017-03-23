@@ -3,6 +3,7 @@ import dbConfig from './config/db';
 import middlewaresConfig from './config/middlewares';
 import path from 'path';
 import {userRoutes} from './modules';
+import bodyParser from 'body-parser';
 
 
 const app =express();
@@ -10,7 +11,6 @@ const app =express();
 Database
 **/
 dbConfig();
-
 /**
 Middleware
 **/
@@ -22,7 +22,9 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
-app.use('/api', [userRoutes]);
+
+app.use('/api', bodyParser.json(), [userRoutes]);
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const PORT = process.env.PORT||8080;
 app.listen(PORT, err => {
