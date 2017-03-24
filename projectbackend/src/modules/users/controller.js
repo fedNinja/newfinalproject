@@ -25,8 +25,8 @@ export const getUsers = async (req, res) => {
 }
 
 export const getUserById = async (req, res) => {
-		const{userName} = req.body.userName;
-		console.log("inside find by Id", userName);
+		console.log(`Inside user Id ${req.body.userName}`);
+		const userName = req.body.userName;
 	try{
 		return res.status(200).json({users: await User.findOne({userName})});
 
