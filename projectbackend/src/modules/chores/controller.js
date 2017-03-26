@@ -19,3 +19,11 @@ export const getChores = async (req, res) => {
 		return res.status(e.status).json({error:true, message:'Error with to get chores data'});
 	}
 }
+
+export const getChoresByCategory = async (req, res) => {
+  try{
+    res.status(200).json({chores: await Chore.find({category:req.params.category})});
+    } catch(e) {
+  return res.status(e.status).json({error:true, message:'Error with getting user data'});
+  }
+}
