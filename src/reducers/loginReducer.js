@@ -1,7 +1,8 @@
 
 const initialState = {
-  userName:null,
-  password:null,
+  userName:"",
+  password:"",
+  errorMessage:""
 };
 
 export default function reducer(state = initialState, action){
@@ -16,7 +17,7 @@ export default function reducer(state = initialState, action){
     case 'LOGIN_ERROR':{
       return {
         ...state,
-        error:action.payload
+        errorMessage: action.payload.message
       }
     }
   }

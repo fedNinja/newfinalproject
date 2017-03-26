@@ -14,14 +14,12 @@ export const createUser = async (req, res) => {
 
 
 export const getUsers = async (req, res) => {
-
 	try{
 		return res.status(200).json({users: await User.find({})});
 
 		}catch(e) {
 		return res.status(e.status).json({error:true, message:'Error with to get user data'});
 	}
-
 }
 
 export const getUserById = async (req, res) => {

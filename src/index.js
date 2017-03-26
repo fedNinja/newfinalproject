@@ -23,7 +23,7 @@ const middleware = applyMiddleware(promise(), thunk, logger());
 axios.defaults.baseURL = 'http://localhost:8080';
 
 export const store = createStore(
-  reducer,middleware
+  reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),middleware
 );
 
 ReactDOM.render(

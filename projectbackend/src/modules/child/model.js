@@ -22,6 +22,10 @@ const ChildSchema = new Schema({
     type:[],
     required:false
   },
+  choresForApproval:{
+    type:[],
+    required:false
+  },
   allowance:{
     type:Number,
     required:false

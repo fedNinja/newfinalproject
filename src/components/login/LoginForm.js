@@ -1,38 +1,25 @@
 import React, { Component } from 'react';
-import {store} from '../../index';
+import {connect} from 'react-redux';
 import { userLoginRequest } from '../../actions/loginActions';
 
 class LoginForm extends Component{
 
-    constructor(props){
-      super(props);
-      this.state={
-        userName:'',
-        password:'',
-        error: {
-          message:''
-        }
-      }
-    }
-
-
-    onChange(e) {
-      this.setState({[e.nativeEvent.target.name]: e.nativeEvent.target.value});
-    }
-
     onSubmit(e) {
       e.preventDefault();
-      console.log(this.state);
-        store.dispatch(userLoginRequest(this.state));
+      const userName = e.target.userName.value;
+      const password = e.target.password.value;
+      this.props.dispatch(userLoginRequest(userName, password));
     }
 
     render(){
+      const { errorMessage } = this.props
     return(
+      <div>
+        {errorMessage ? <p>{errorMessage}</p> : null}
         <form onSubmit={(e) => this.onSubmit(e) }>
           <div className="form-group">
             <label className="control-label">UserName</label>
             <input
-              onChange={(e) => this.onChange(e)}
               type="text"
               name="userName"
               className="form-control" />
@@ -40,7 +27,6 @@ class LoginForm extends Component{
             <div className="form-group">
               <label className="control-label">Password</label>
               <input
-                onChange={(e) => this.onChange(e)}
                 type="password"
                 name="password"
                 className="form-control" />
@@ -49,6 +35,7 @@ class LoginForm extends Component{
                 <button className="btn btn-primary btn-lg">Login</button>
               </div>
         </form>
+      </div>
     );
   }
 }
@@ -57,4 +44,12 @@ LoginForm.propTypes = {
   userLoginRequest: React.PropTypes.func.isRequired
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => {
+  return {
+    name:state.logIn.userName,
+    password:state.logIn.password,
+    errorMessage:state.logIn.errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(LoginForm);
