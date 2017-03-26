@@ -1,6 +1,7 @@
-import { Router } from 'express';
-import * as choreController from './controller';
+import {Router} from 'express';
+import * as ChoreController from './controller';
 const routes = new Router();
 
+routes.post('/chores', ChoreController.addChores);
 
-routes.get('/chores', choreController.getChores);
+export default routes;

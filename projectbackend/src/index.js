@@ -2,7 +2,7 @@ import express from 'express';
 import dbConfig from './config/db';
 import middlewaresConfig from './config/middlewares';
 import path from 'path';
-import {userRoutes} from './modules';
+import {userRoutes, choreRoutes} from './modules';
 
 const app =express();
 /***
@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api', [userRoutes]);
+app.use('/api', [choreRoutes]);
 
 
 const PORT = process.env.PORT||8080;

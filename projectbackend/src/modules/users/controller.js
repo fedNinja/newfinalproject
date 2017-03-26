@@ -8,8 +8,7 @@ export const createUser = async (req, res) => {
 
 	}catch(e) {
 	return res.status(400).json({error:true, message:'Error with User creation'});
-}
-
+	}
 }
 
 
