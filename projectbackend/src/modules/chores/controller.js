@@ -10,3 +10,12 @@ export const addChores = async (req, res) => {
 	return res.status(400).json({error:true, message:'Error with Chore creation'});
  }
 }
+
+export const getChores = async (req, res) => {
+	try{
+		return res.status(200).json({chores: await Chore.find({})});
+
+		}catch(e) {
+		return res.status(e.status).json({error:true, message:'Error with to get chores data'});
+	}
+}
