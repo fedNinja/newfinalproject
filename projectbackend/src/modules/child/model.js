@@ -1,5 +1,5 @@
 import mongoose, {Schema} from 'mongoose';
-import User from './users/model';
+import User from '../users/model';
 
 const ChildSchema = new Schema({
   parent:{
