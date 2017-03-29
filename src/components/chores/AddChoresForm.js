@@ -1,87 +1,33 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { addChoresRequest } from '../../actions/addChoresActions';
+import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 class AddChoresForm extends Component{
 
-    constructor(props){
-      super(props);
-      this.state={
-        assignedChores:[
-          {
-            Chore:"Fold Laundry",
-            Sun:false,
-            Mon:false,
-            Tue:false,
-            Wed:false,
-            Thu:false,
-            Fri:false,
-            Sat:false
-          }
-        ],
-        childName:'kid1'
-      }
-    }
-
-
     onChange(e) {
-      console.log(e.nativeEvent.target.value);
-      console.log(this.state.assignedChores[0].Sun);
-      console.log(e.nativeEvent.target.checked);
-      this.setState({assignedChores:[
-        {
-          [e.nativeEvent.target.value]: e.nativeEvent.target.checked
-        }
-      ]});
-    }
-
-    onSubmit(e) {
       e.preventDefault();
-      console.log(this.state);
-        // store.dispatch(addChoresRequest(this.state));
+      const category = e.target.value;
+      console.log(category);
+      this.props.dispatch(addChoresRequest(category));
     }
 
     render(){
+      const { errorMessage } = this.props
     return(
+      <div>
+        {errorMessage ? <p>{errorMessage}</p> : null}
         <form onSubmit={(e) => this.onSubmit(e) }>
-          <div className="row">
-            <div className="form-group">
-              <h2>Fold Laundry</h2>
-              Sun
-              <input type="checkbox"
-                value="Sun"
-                onChange={(e) => this.onChange(e)}
-                checked={this.state.assignedChores[0].Sun} />
-              Mon
-              <input type="checkbox"
-                onChange={(e) => this.onChange(e)}
-                checked={this.state.isChecked} />
-              Tue
-              <input type="checkbox"
-                onChange={(e) => this.onChange(e)}
-                checked={this.state.isChecked} />
-              Wed
-              <input type="checkbox"
-                onChange={(e) => this.onChange(e)}
-                checked={this.state.isChecked} />
-              Thu
-              <input type="checkbox"
-                onChange={(e) => this.onChange(e)}
-                checked={this.state.isChecked} />
-              Fri
-              <input type="checkbox"
-                onChange={(e) => this.onChange(e)}
-                checked={this.state.isChecked} />
-              Sat
-              <input type="checkbox"
-                onChange={(e) => this.onChange(e)}
-                checked={this.state.isChecked} />
-
-            </div>
-            <div className="form-group">
-              <button className="btn btn-primary btn-lg">Add Chore</button>
-            </div>
-          </div>
+          <FormGroup controlId="category">
+              <ControlLabel>Select Chore Category</ControlLabel>
+              <FormControl componentClass="select" placeholder="select" onChange={(e) => this.onChange(e)}>
+                <option value="select">select </option>
+                <option value="Household_Chores">Household Chores</option>
+                <option value="Mealtime_Chores">Mealtime Chores</option>
+              </FormControl>
+          </FormGroup>
         </form>
+      </div>
     );
   }
 }
@@ -90,4 +36,10 @@ AddChoresForm.propTypes = {
   addChoresRequest: React.PropTypes.func.isRequired
 }
 
-export default AddChoresForm;
+const mapStateToProps = (state) => {
+  return {
+    category:state.chores.category
+  }
+}
+
+export default connect(mapStateToProps)(AddChoresForm);

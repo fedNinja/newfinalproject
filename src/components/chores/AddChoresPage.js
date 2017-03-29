@@ -7,7 +7,7 @@ class AddChoresPage extends Component{
   render(){
     return(
       <div className="row">
-        <div className="col-md-12 col-md-offset-4">
+        <div className="col-md-6 col-md-offset-3">
           <AddChoresForm addChoresRequest={addChoresRequest} />
         </div>
       </div>

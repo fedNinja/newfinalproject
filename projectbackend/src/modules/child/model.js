@@ -1,10 +1,12 @@
 import mongoose, {Schema} from 'mongoose';
 import User from '../users/model';
+import Chore from '../chores/model';
 
 const ChildSchema = new Schema({
   parent:{
     type:mongoose.Schema.Types.ObjectId,
-    ref:User
+    ref:User,
+    required:true
   },
 	userName:{
 		type:String,
