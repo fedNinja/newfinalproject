@@ -28,19 +28,27 @@ export const getChildById = async (req, res) => {
 }
 
 export const assignChores = function(req, res) {
-	console.log(req.body);
-	const childId = req.body.childId;
-	const ChId =req.body.choreId;
-	const day =req.body.day;
-	const s =req.body.status;
-	const chores = [ChId, day, s];
-	console.log(childId, chores);
-	Child.findOneAndUpdate({'_id':childId}, {$set: {assignedChores:[chores]}}, {new:true}, function(err, obj){
+	console.log(`Inside assign chore ${JSON.stringify(req.body)}`);
+	const childId = req.params.childId;
+	let chores = req.body.chore;
+	let choresArray = [];
+	for(var key in chores){
+		if(chores.hasOwnProperty(key)){
+			let ChId = chores[key].ChId;
+			let day = chores[key].day;
+			let status = chores[key].status;
+			choresArray.push([ChId, day, status]);
+		};
+	}
+	console.log(`choresArray ${JSON.stringify(choresArray)}`);
+	Child.findOneAndUpdate({'_id':childId}, {$set: {assignedChores:choresArray}}, {new:true}, function(err, obj){
+		console.log(`error ${err}`);
       if(err){
         res.status(500).send(err);
       }
 			else{
-				res.status(200).json(obj);
+				console.log(obj);
+				res.status(201).json(obj);
 			}
     });
 }

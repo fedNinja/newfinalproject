@@ -31,7 +31,7 @@
     "shortid": "^2.2.8"
   },
   "scripts": {
-    "devserver": "nodemon --watch src --exec babel-node -- projectbackend/src/index.js",
+    "devserver": "nodemon --exec babel-node -- projectbackend/src/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
