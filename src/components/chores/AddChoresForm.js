@@ -4,7 +4,14 @@ import { addChoresRequest, assignChoreRequest } from '../../actions/addChoresAct
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import Styles from './style.css';
 
+
 class AddChoresForm extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      addedChores:[]
+    }
+  }
 
     onChange(e) {
       e.preventDefault();
@@ -14,24 +21,25 @@ class AddChoresForm extends Component{
     }
 
     onClick(e, j) {
-      console.log(j);
-      console.log(this.props.chores[j]._id);
       const chores = [
           {
             ChId:this.props.chores[j]._id,
-            day:"Thursday",
+            day:"Friday",
             status:false
           }
         ]
-      this.props.dispatch(assignChoreRequest("58dc6ca412570d11819ede18", chores));
+        this.setState({
+          addedChores:this.state.addedChores.concat([j])
+        })
+
+      this.props.dispatch(assignChoreRequest("58e2e6e73b191d315d1d2273", chores));
     }
 
     render(){
       const { errorMessage } = this.props;
       const { chores } = this.props;
       const { updatedChore } = this.props;
-      console.log("num of chores are: ", chores.length);
-      console.log(updatedChore);
+      console.log({state:this.state});
     return(
       <div>
         {errorMessage ? <p>{errorMessage}</p> : null}
@@ -54,7 +62,12 @@ class AddChoresForm extends Component{
                     {chores.map((item, i) => (
                       <li className="listStyle" key={i}>
                         <span className="contentStyle">{item.choreName}</span>
-                        <button className="btn btn-primary btn-md btnStyle" id={"add"+i} onClick={(e) => this.onClick(e, i)}>Add Chore</button>
+                        {(this.state.addedChores.indexOf(i) !== -1)
+                          ?
+                          <span>Added</span>
+                          :
+                          <button className="btn btn-primary btn-md btnStyle" id={"add"+i} onClick={(e) => this.onClick(e, i)}>Add Chore</button>
+                        }
                       </li>
                     ))}
               </ul>

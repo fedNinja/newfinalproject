@@ -6,8 +6,7 @@ const ChoresSchema = new Schema({
 		required:true
 	},
 	choreDescription:{
-		type:String,
-		required:false
+		type:String
 	},
   category:{
     type:String,

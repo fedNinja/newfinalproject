@@ -9,4 +9,5 @@ routes.put('/assignChores/:childId', ChildController.assignChores);
 routes.put('/updateAllowance', ChildController.updateAllowance);
 routes.put('/updateSpending', ChildController.updateSpending);
 routes.delete('/deleteChild/:id', ChildController.deleteById);
+routes.get('/deleteChore/:id/:assignedChores', ChildController.deleteChoreById);
 export default routes;

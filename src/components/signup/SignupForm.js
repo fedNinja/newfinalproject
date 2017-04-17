@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {store} from '../../index';
 
-import { userSignupRequest, getSignupData } from '../../actions/signupActions';
+import { userSignupRequest } from '../../actions/signupActions';
 class SignupForm extends Component{
   constructor(props){
     super(props);
@@ -13,15 +13,12 @@ class SignupForm extends Component{
   }
 
   onChange(e) {
-    console.log(e.nativeEvent.target.value);
     this.setState({[e.nativeEvent.target.name]: e.nativeEvent.target.value});
   }
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
     store.dispatch(userSignupRequest(this.state));
-    {/*this.props.userSignupRequest(this.state);*/}
   }
 
   render(){

@@ -1,4 +1,5 @@
 import Child from './model';
+import mongoose from 'mongoose';
 
 export const addChild = async(req,res) => {
 	const{parent, userName, password, dateOfBirth} = req.body;
@@ -32,16 +33,18 @@ export const assignChores = function(req, res) {
 	const childId = req.params.childId;
 	let chores = req.body.chore;
 	let choresArray = [];
+	let ChId, day, status;
 	for(var key in chores){
 		if(chores.hasOwnProperty(key)){
-			let ChId = chores[key].ChId;
-			let day = chores[key].day;
-			let status = chores[key].status;
+			ChId = chores[key].ChId;
+			day = chores[key].day;
+			status = chores[key].status;
 			choresArray.push([ChId, day, status]);
 		};
 	}
 	console.log(`choresArray ${JSON.stringify(choresArray)}`);
-	Child.findOneAndUpdate({'_id':childId}, {$set: {assignedChores:choresArray}}, {new:true}, function(err, obj){
+	console.log(childId);
+	Child.findOneAndUpdate({'_id':childId}, {$push: {assignedChores: {$each: choresArray}}}, {new:true}, function(err, obj){
 		console.log(`error ${err}`);
       if(err){
         res.status(500).send(err);
@@ -81,6 +84,22 @@ export const deleteById = function(req, res) {
 		});
 }
 
+export const deleteChoreById = function(req, res) {
+	console.log("inside chore delete");
+	console.log(`${JSON.stringify(req.params)}`);
+	var assignedChoresId = req.params.assignedChores;
+
+	Child
+		.find({_id:req.params.id, assignedChores:{$all:[[assignedChoresId]]}})
+		.exec()
+		.then((chore) => {
+			console.log(chore);
+			res.status(201).json(chore);
+		})
+		.catch(err => {
+			res.status(500).json({error:'something went terribly wrong'});
+		});
+}
 /*
 export const assignChores = function(req, res) {
 	console.log(req.body);

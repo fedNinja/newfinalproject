@@ -1,11 +1,10 @@
 import mongoose, {Schema} from 'mongoose';
-import User from '../users/model';
 
 const ChildSchema = new Schema({
   parent:{
     type:mongoose.Schema.Types.ObjectId,
-    ref:User,
-    required:false
+    ref:"User",
+    required:true
   },
 	userName:{
 		type:String,
@@ -20,20 +19,16 @@ const ChildSchema = new Schema({
 		required:true
 	},
   assignedChores:{
-    type:[],
-    required:false
+    type:[]
   },
   choresForApproval:{
-    type:[],
-    required:false
+    type:[]
   },
   allowance:{
-    type:Number,
-    required:false
+    type:Number
   },
   spending:{
-    type:Number,
-    required:false
+    type:Number
   }
 
 });

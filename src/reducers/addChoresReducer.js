@@ -30,6 +30,7 @@ export default function reducer(state = initialState, action){
         updatedChore: action.chores
       }
     }
+    default:
+      return state;
   }
-  return state;
 }

@@ -13,6 +13,8 @@ class LoginForm extends Component{
 
     render(){
       const { errorMessage } = this.props
+      const { userId } = this.props
+      console.log(userId);
     return(
       <div>
         {errorMessage ? <p>{errorMessage}</p> : null}
@@ -48,7 +50,8 @@ const mapStateToProps = (state) => {
   return {
     name:state.logIn.userName,
     password:state.logIn.password,
-    errorMessage:state.logIn.errorMessage
+    errorMessage:state.logIn.errorMessage,
+    userId:state.logIn.userId
   }
 }
 

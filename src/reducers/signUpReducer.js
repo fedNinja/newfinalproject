@@ -29,6 +29,7 @@ export default function reducer(state = initialState, action){
         email:action.payload.email
       }
     }
+    default:
+      return state;
   }
-  return state;
 }

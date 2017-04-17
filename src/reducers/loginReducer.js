@@ -11,7 +11,8 @@ export default function reducer(state = initialState, action){
       console.log(`Inside the reducer ${JSON.stringify(action)}`);
       return {
         userName:action.payload.users.userName,
-        password:action.payload.users.password
+        password:action.payload.users.password,
+        userId:action.payload.users._id
       }
     }
     case 'LOGIN_ERROR':{
@@ -20,6 +21,8 @@ export default function reducer(state = initialState, action){
         errorMessage: action.payload.message
       }
     }
+    default:
+    return state;
   }
-  return state;
+
 }
